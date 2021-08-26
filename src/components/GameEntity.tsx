@@ -1,13 +1,9 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react';
 
 type GameEntity = {
-    visual: ReactNode;
-}
+  visual: ReactNode;
+};
 
 export default function GameEntity({ visual }: GameEntity) {
-    return (
-        <div>
-            {visual}
-        </div>
-    )
+  return <div>{visual}</div>;
 }

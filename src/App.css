@@ -1,118 +1,120 @@
-html, body, #root, .App {
-    height: 100%;
+html,
+body,
+#root,
+.App {
+  height: 100%;
 }
 
 #arena {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 @keyframes battle_player {
- 0% {
-     margin-top: 0rem;
+  0% {
+    margin-top: 0rem;
     margin-left: 0rem;
- }
+  }
 
- 10% {
-     margin-top: -2rem;
- }
- 
- 20% {
-     margin-top: 4rem;
- }
-
- 30% {
+  10% {
     margin-top: -2rem;
- }
+  }
 
- 40% {
+  20% {
     margin-top: 4rem;
- }
+  }
 
-50% {
+  30% {
+    margin-top: -2rem;
+  }
+
+  40% {
+    margin-top: 4rem;
+  }
+
+  50% {
     margin-top: -2rem;
     margin-left: 20rem;
-}
+  }
 
-60% {
+  60% {
     margin-top: -2rem;
-}
+  }
 
-70% {
+  70% {
     margin-top: 4rem;
-}
+  }
 
-80% {
-   margin-top: -2rem;
-}
+  80% {
+    margin-top: -2rem;
+  }
 
-90% {
-   margin-top: 4rem;
-}
+  90% {
+    margin-top: 4rem;
+  }
 
- 100% {
-     margin-top: 0rem;
+  100% {
+    margin-top: 0rem;
     margin-left: 0rem;
- }
+  }
 }
 
-@keyframes battle_enemy {    
-    0% {
-        margin-top: 0rem;
-        margin-right: 0rem;
-    }
-   
-    10% {
-        margin-top: -2rem;
-    }
-    
-    20% {
-        margin-top: 4rem;
-    }
-   
-    30% {
-       margin-top: -2rem;
-    }
-   
-    40% {
-       margin-top: 4rem;
-    }
-    
-    
-    50% {
-       margin-top: -2rem;
-       margin-right: 20rem;
-    }
-    
-    60% {
-        margin-top: -2rem;
-    }
-    
-    70% {
-        margin-top: 4rem;
-    }
-    
-    80% {
-       margin-top: -2rem;
-    }
-    
-    90% {
-       margin-top: 4rem;
-    }
-    100% {
-       margin-right: 0rem;
-    }
-   }
+@keyframes battle_enemy {
+  0% {
+    margin-top: 0rem;
+    margin-right: 0rem;
+  }
+
+  10% {
+    margin-top: -2rem;
+  }
+
+  20% {
+    margin-top: 4rem;
+  }
+
+  30% {
+    margin-top: -2rem;
+  }
+
+  40% {
+    margin-top: 4rem;
+  }
+
+  50% {
+    margin-top: -2rem;
+    margin-right: 20rem;
+  }
+
+  60% {
+    margin-top: -2rem;
+  }
+
+  70% {
+    margin-top: 4rem;
+  }
+
+  80% {
+    margin-top: -2rem;
+  }
+
+  90% {
+    margin-top: 4rem;
+  }
+  100% {
+    margin-right: 0rem;
+  }
+}
 
 #arena > div:first-child {
-    animation-name: battle_player;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
+  animation-name: battle_player;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
 }
 
 #arena > div:last-child {
-    animation-name: battle_enemy;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
+  animation-name: battle_enemy;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
 }
