@@ -1,13 +1,18 @@
 import Dice from './Dice';
 
+export type Stats = {
+  damage: number;
+  health: number;
+};
 interface IEntity {
   getDamage(): number;
   getHealth(): number;
+  getStats(): Stats;
 
   setHealth(attack: number): number;
   heal(): void;
 
-  levelUp(): void;
+  levelUp(damage: number, health: number): void;
 }
 
 export default class Entity implements IEntity {
@@ -19,11 +24,18 @@ export default class Entity implements IEntity {
     this.health = health;
   }
 
+  getStats(): Stats {
+    return {
+      damage: this.damage,
+      health: this.health,
+    };
+  }
+
   /**
    * Calculates attack damage, including critical hit
    * @returns { number } attack damage
    */
-  getDamage() {
+  getDamage(): number {
     const dies = Dice.roll();
     return dies === 6 ? this.damage * 2 : this.damage;
   }
@@ -32,7 +44,7 @@ export default class Entity implements IEntity {
    * Retrieves current health
    * @returns { number } current health
    */
-  getHealth() {
+  getHealth(): number {
     return this.health;
   }
 
@@ -41,7 +53,7 @@ export default class Entity implements IEntity {
    * @param { number } attack attacks the given entity
    * @returns remaining health
    */
-  setHealth(attack: number) {
+  setHealth(attack: number): number {
     this.health = this.health - attack;
 
     if (this.health < 0) {
@@ -56,7 +68,7 @@ export default class Entity implements IEntity {
   /**
    * Heals the entity
    */
-  heal() {
+  heal(): void {
     const dies = Dice.roll();
     this.health =
       dies >= 5 ? this.damage + this.health : this.damage * 2 + this.health;
@@ -65,16 +77,8 @@ export default class Entity implements IEntity {
   /**
    * increases stats
    */
-  levelUp() {
-    const dies = Dice.roll();
-
-    if (dies < 2) {
-      this.damage += 2;
-    } else if (dies < 4) {
-      this.damage += 3;
-    } else {
-      this.damage += 4;
-      this.heal();
-    }
+  levelUp(damage: number, health: number): void {
+    this.damage += damage;
+    this.health += health;
   }
 }
