@@ -1,9 +1,9 @@
 import { ReactElement, ReactNode } from 'react';
 
-type GameEntity = {
+type GameEntityProps = {
   visual: ReactNode;
 };
 
-export default function GameEntity({ visual }: GameEntity): ReactElement {
+export default function GameEntity({ visual }: GameEntityProps): ReactElement {
   return <div>{visual}</div>;
 }

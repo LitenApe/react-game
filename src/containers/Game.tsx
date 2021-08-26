@@ -1,4 +1,4 @@
-import { useState, useCallback, ReactNode, ReactElement } from 'react';
+import { ReactElement, ReactNode, useCallback, useState } from 'react';
 
 import Battle from '../containers/Battle';
 import Entity, { Stats } from '../service/Entity';
@@ -49,7 +49,7 @@ export default function Game(props: GameProps): ReactElement {
       });
       setState(() => gameState);
     },
-    [setRound, setEnemy, setState]
+    [setRound, setEnemy, setState, round]
   );
 
   const resetGame = useCallback(() => {

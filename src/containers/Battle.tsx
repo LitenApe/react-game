@@ -1,4 +1,4 @@
-import { useState, ReactNode, useEffect, ReactElement } from 'react';
+import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import GameEntity from '../components/GameEntity';
 import Entity from '../service/Entity';
 import { GameState } from './Game';
@@ -43,7 +43,7 @@ export default function Battle(props: BattleProps): ReactElement {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [player, enemy, setGameMode]);
 
   return (
     <>

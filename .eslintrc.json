@@ -4,6 +4,8 @@
     "es2021": true
   },
   "extends": [
+    "react-app",
+    "react-app/jest",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
@@ -23,6 +25,16 @@
     "linebreak-style": ["error", "windows"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreMemberSort": false,
+        "allowSeparatedGroups": false,
+        "ignoreDeclarationSort": true,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ]
   }
 }
