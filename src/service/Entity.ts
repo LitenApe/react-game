@@ -9,7 +9,7 @@ interface IEntity {
   getHealth(): number;
   getStats(): Stats;
 
-  setHealth(attack: number): number;
+  receiveAttack(attack: number): number;
   heal(): void;
 
   levelUp(damage: number, health: number): void;
@@ -53,7 +53,7 @@ export default class Entity implements IEntity {
    * @param { number } attack attacks the given entity
    * @returns remaining health
    */
-  setHealth(attack: number): number {
+  receiveAttack(attack: number): number {
     this.health = this.health - attack;
 
     if (this.health < 0) {
@@ -70,8 +70,7 @@ export default class Entity implements IEntity {
    */
   heal(): void {
     const dies = Dice.roll();
-    this.health =
-      dies >= 5 ? this.damage + this.health : this.damage * 2 + this.health;
+    this.health = dies >= 5 ? this.health + 4 : this.health + 2;
   }
 
   /**

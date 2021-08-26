@@ -40,9 +40,13 @@ export default function Game(props: GameProps): ReactElement {
   const progressGame = useCallback(
     (gameState: GameState) => {
       setRound((round) => round + 1);
-      setEnemy(
-        (previousEnemy) => new Entity(round + previousEnemy.getDamage())
-      );
+      setEnemy((previousEnemy) => {
+        const previousStats = previousEnemy.getStats();
+        return new Entity(
+          previousStats.damage + round,
+          initialPlayerStats.health + round
+        );
+      });
       setState(() => gameState);
     },
     [setRound, setEnemy, setState]
@@ -72,10 +76,9 @@ export default function Game(props: GameProps): ReactElement {
 
   return (
     <>
-      <p>Attempts: {attempts}</p>
-      <p>Round: {round}</p>
-      <p>Player Stats: {JSON.stringify(player.getStats())}</p>
-      <p>Enemy Stats: {JSON.stringify(enemy.getStats())}</p>
+      <p>
+        Attempts: {attempts} | Round: {round}
+      </p>
 
       <Battle
         player={player}
