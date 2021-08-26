@@ -1,7 +1,7 @@
 import { useState, useCallback, ReactNode, ReactElement } from 'react';
 
 import Battle from '../containers/Battle';
-import Entity from '../service/Entity';
+import Entity, { Stats } from '../service/Entity';
 import GameOver from './GameOver';
 import Reward from './Reward';
 
@@ -22,12 +22,19 @@ export enum GameState {
   Dead,
 }
 
+const initialPlayerStats: Stats = {
+  damage: 4,
+  health: 20,
+};
+
 export default function Game(props: GameProps): ReactElement {
   const { player: PV, enemy: EV } = props;
   const [attempts, setAttempts] = useState<number>(1);
   const [state, setState] = useState<GameState>(GameState.Battle);
   const [round, setRound] = useState<number>(1);
-  const [player, setPlayer] = useState(new Entity(4, 20));
+  const [player, setPlayer] = useState(
+    new Entity(initialPlayerStats.damage, initialPlayerStats.health)
+  );
   const [enemy, setEnemy] = useState<Entity>(new Entity());
 
   const progressGame = useCallback(
@@ -45,7 +52,13 @@ export default function Game(props: GameProps): ReactElement {
     setAttempts(() => attempts + 1);
     setRound(() => 1);
     setEnemy(() => new Entity());
-    setPlayer(() => new Entity(attempts + 4, 20));
+    setPlayer(
+      () =>
+        new Entity(
+          attempts + initialPlayerStats.damage,
+          initialPlayerStats.health
+        )
+    );
     setState(() => GameState.Battle);
   }, [attempts, setAttempts, setRound, setEnemy, setState]);
 
