@@ -1,4 +1,4 @@
-import { useCallback, ReactElement, Dispatch, SetStateAction } from 'react';
+import { ReactElement, Dispatch, SetStateAction } from 'react';
 import Entity, { Stats } from '../service/Entity';
 import { GameState } from './Game';
 
@@ -26,13 +26,10 @@ export default function Reward({
   player,
   setGameState,
 }: RewardProps): ReactElement {
-  const chooseReward = useCallback(
-    ({ damage, health }: Stats) => {
-      player.levelUp(damage, health);
-      setGameState(() => GameState.Battle);
-    },
-    [player, setGameState]
-  );
+  function chooseReward({ damage, health }: Stats) {
+    player.levelUp(damage, health);
+    setGameState(() => GameState.Battle);
+  }
 
   return (
     <div>
