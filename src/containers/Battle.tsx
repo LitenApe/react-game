@@ -47,7 +47,7 @@ export default function Battle(props: BattleProps): ReactElement {
 
   return (
     <>
-      <div id="arena">
+      <div>
         <GameEntity visual={playerVisual} />
         <GameEntity visual={enemyVisual} />
       </div>
