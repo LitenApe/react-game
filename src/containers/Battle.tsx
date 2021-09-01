@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import GameEntity from '../components/GameEntity';
 import Entity from '../service/Entity';
 import { GameState } from './Game';
@@ -14,7 +14,7 @@ type BattleProps = {
   setGameMode(gameState: GameState): void;
 };
 
-export default function Battle(props: BattleProps): ReactElement {
+export default function Battle(props: BattleProps): JSX.Element {
   const { player, playerVisual, enemy, enemyVisual, setGameMode } = props;
   const [battleLog, setBattleLog] = useState<Array<string>>([]);
 

@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, useCallback, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 
 import Battle from '../containers/Battle';
 import Entity, { Stats } from '../service/Entity';
@@ -27,7 +27,7 @@ const initialPlayerStats: Stats = {
   health: 100,
 };
 
-export default function Game(props: GameProps): ReactElement {
+export default function Game(props: GameProps): JSX.Element {
   const { player: PV, enemy: EV } = props;
   const [attempts, setAttempts] = useState<number>(1);
   const [state, setState] = useState<GameState>(GameState.Battle);

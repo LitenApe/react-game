@@ -1,10 +1,8 @@
-import { ReactElement } from 'react';
-
 type GameOverProps = {
   resetGame(): void;
 };
 
-export default function GameOver({ resetGame }: GameOverProps): ReactElement {
+export default function GameOver({ resetGame }: GameOverProps): JSX.Element {
   return (
     <>
       <h1>Game Over!</h1>

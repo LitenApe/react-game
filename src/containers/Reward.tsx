@@ -1,4 +1,4 @@
-import { Dispatch, ReactElement, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import Entity, { Stats } from '../service/Entity';
 import { GameState } from './Game';
 
@@ -25,7 +25,7 @@ const rewards: Array<Stats> = [
 export default function Reward({
   player,
   setGameState,
-}: RewardProps): ReactElement {
+}: RewardProps): JSX.Element {
   function chooseReward({ damage, health }: Stats) {
     player.levelUp(damage, health);
     setGameState(() => GameState.Battle);

@@ -57,7 +57,8 @@ export default class Entity implements IEntity {
   }
 
   /**
-   * Attack the entity
+   * Attack the entity. The entity might receive some healing
+   * after the attack if they are lucky
    * @param { number } attack attacks the given entity
    * @returns remaining health
    */
@@ -66,7 +67,7 @@ export default class Entity implements IEntity {
 
     if (this.health < 0) {
       this.health = 0;
-    } else if (Dice.roll() >= 5) {
+    } else if (Dice.roll() === 6) {
       this.heal();
     }
 
