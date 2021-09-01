@@ -2,6 +2,7 @@ import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import GameEntity from '../components/GameEntity';
 import Entity from '../service/Entity';
 import { GameState } from './Game';
+import StatusBox from '../components/StatusBox';
 
 type BattleProps = {
   player: Entity;
@@ -47,9 +48,11 @@ export default function Battle(props: BattleProps): ReactElement {
 
   return (
     <>
-      <div>
-        <GameEntity visual={playerVisual} />
+      <div id="arena">
+        <StatusBox entity={enemy} />
         <GameEntity visual={enemyVisual} />
+        <GameEntity visual={playerVisual} />
+        <StatusBox entity={player} />
       </div>
       <ul>
         {battleLog.map((history, index) => (

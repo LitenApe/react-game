@@ -24,7 +24,7 @@ export enum GameState {
 
 const initialPlayerStats: Stats = {
   damage: 4,
-  health: 20,
+  health: 100,
 };
 
 export default function Game(props: GameProps): ReactElement {
@@ -33,9 +33,9 @@ export default function Game(props: GameProps): ReactElement {
   const [state, setState] = useState<GameState>(GameState.Battle);
   const [round, setRound] = useState<number>(1);
   const [player, setPlayer] = useState(
-    new Entity(initialPlayerStats.damage, initialPlayerStats.health)
+    new Entity('Player', initialPlayerStats.damage, initialPlayerStats.health)
   );
-  const [enemy, setEnemy] = useState<Entity>(new Entity());
+  const [enemy, setEnemy] = useState<Entity>(new Entity('Enemy', 1, 100));
 
   const progressGame = useCallback(
     (gameState: GameState) => {
@@ -43,6 +43,7 @@ export default function Game(props: GameProps): ReactElement {
       setEnemy((previousEnemy) => {
         const previousStats = previousEnemy.getStats();
         return new Entity(
+          'Enemy',
           previousStats.damage + round,
           initialPlayerStats.health + round
         );
@@ -55,10 +56,11 @@ export default function Game(props: GameProps): ReactElement {
   const resetGame = useCallback(() => {
     setAttempts(() => attempts + 1);
     setRound(() => 1);
-    setEnemy(() => new Entity());
+    setEnemy(() => new Entity('Enemy'));
     setPlayer(
       () =>
         new Entity(
+          'Player',
           attempts + initialPlayerStats.damage,
           initialPlayerStats.health
         )

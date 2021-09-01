@@ -5,6 +5,8 @@ export type Stats = {
   health: number;
 };
 interface IEntity {
+  getName(): string;
+
   getDamage(): number;
   getHealth(): number;
   getStats(): Stats;
@@ -16,12 +18,18 @@ interface IEntity {
 }
 
 export default class Entity implements IEntity {
+  private name;
   private damage = 1;
   private health = 10;
 
-  constructor(damage = 1, health = 10) {
+  constructor(name: string, damage = 1, health = 10) {
+    this.name = name;
     this.damage = damage;
     this.health = health;
+  }
+
+  getName(): string {
+    return this.name;
   }
 
   getStats(): Stats {

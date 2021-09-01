@@ -1,0 +1,35 @@
+.entity-status-box {
+  position: relative;
+  width: 100%;
+  max-width: 20rem;
+  padding: 0 1.25rem;
+  border: 2px solid black;
+  border-radius: 0.15rem;
+}
+
+.health-container {
+  position: relative;
+}
+
+.health {
+  text-align: center;
+  background-color: rgba(175, 175, 175, 0.3);
+  padding: 0.25rem 0;
+}
+
+.health-bar {
+  position: absolute;
+  height: 100%;
+  background-color: green;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+#arena > .entity-status-box:last-child {
+  float: left;
+}
+
+#arena > .entity-status-box:last-child {
+  float: right;
+}
