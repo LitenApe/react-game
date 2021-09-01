@@ -32,19 +32,18 @@ export default function Reward({
   }
 
   return (
-    <div>
-      <div>
-        <p>Choose your battle reward!</p>
-        <ul>
-          {rewards.map(({ damage, health }) => (
-            <li key={`reward-${damage}/${health}`}>
-              <button onClick={() => chooseReward({ damage, health })}>
-                {damage}/{health}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <section id="reward">
+      <h2>You won!</h2>
+      <p>Choose your battle reward!</p>
+      <ul>
+        {rewards.map(({ damage, health }) => (
+          <li key={`reward-${damage}/${health}`}>
+            <button onClick={() => chooseReward({ damage, health })}>
+              {damage}/{health}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

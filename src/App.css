@@ -1,3 +1,4 @@
+/* StatusBox */
 .entity-status-box {
   position: relative;
   width: 100%;
@@ -32,4 +33,49 @@
 
 #arena > .entity-status-box:last-child {
   float: right;
+}
+
+/* Reward */
+
+#reward {
+  text-align: center;
+}
+
+#reward > ul {
+  display: grid;
+  grid-column: repeat(5, 1fr);
+  gap: 1rem;
+  grid-row: auto;
+}
+
+#reward > ul > li:nth-child(1) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#reward > ul > li:nth-child(2) {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+#reward > ul > li:nth-child(3) {
+  grid-column: 4;
+  grid-row: 2;
+}
+
+#reward > ul {
+  list-style: none;
+  padding-inline-start: 0;
+  width: 100%;
+  max-width: 20rem;
+  margin: 0 auto;
+}
+
+#reward > ul > li > button {
+  width: 4rem;
+  height: 4rem;
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
