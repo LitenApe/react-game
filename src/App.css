@@ -27,16 +27,15 @@
   z-index: -1;
 }
 
+#arena > .entity-status-box:first-child {
+  float: right;
+}
+
 #arena > .entity-status-box:last-child {
   float: left;
 }
 
-#arena > .entity-status-box:last-child {
-  float: right;
-}
-
 /* Reward */
-
 #reward {
   text-align: center;
 }
@@ -78,4 +77,21 @@
   border: 2px solid black;
   border-radius: 0.5rem;
   cursor: pointer;
+}
+
+/* Arena */
+#arena-ring {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 3rem 2rem;
+}
+
+#arena-ring > * {
+  width: 5rem;
+  height: 5rem;
+}
+
+#arena-ring > *:first-child {
+  margin-top: 3rem;
 }

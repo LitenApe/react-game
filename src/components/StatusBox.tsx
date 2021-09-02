@@ -18,7 +18,7 @@ export default function StatusBox(props: StatusBoxProps): JSX.Element {
       <div className="health-container">
         <p className="health">
           {currentHealth}/{startingHealth}
-          <div
+          <span
             className="health-bar"
             style={{ width: `${healthPercentage}%` }}
           />

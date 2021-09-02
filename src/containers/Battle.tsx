@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import GameEntity from '../components/GameEntity';
 import Entity from '../service/Entity';
 import { GameState } from './Game';
@@ -6,16 +6,14 @@ import StatusBox from '../components/StatusBox';
 
 type BattleProps = {
   player: Entity;
-  playerVisual: ReactNode;
 
   enemy: Entity;
-  enemyVisual: ReactNode;
 
   setGameMode(gameState: GameState): void;
 };
 
 export default function Battle(props: BattleProps): JSX.Element {
-  const { player, playerVisual, enemy, enemyVisual, setGameMode } = props;
+  const { player, enemy, setGameMode } = props;
   const [battleLog, setBattleLog] = useState<Array<string>>([]);
 
   useEffect(() => {
@@ -50,8 +48,10 @@ export default function Battle(props: BattleProps): JSX.Element {
     <>
       <div id="arena">
         <StatusBox entity={enemy} />
-        <GameEntity visual={enemyVisual} />
-        <GameEntity visual={playerVisual} />
+        <div id="arena-ring">
+          <GameEntity entity={enemy} />
+          <GameEntity entity={player} />
+        </div>
         <StatusBox entity={player} />
       </div>
       <ul>

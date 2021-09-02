@@ -1,14 +1,9 @@
-import { ReactNode, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import Battle from '../containers/Battle';
 import Entity, { Stats } from '../service/Entity';
 import GameOver from './GameOver';
 import Reward from './Reward';
-
-type GameProps = {
-  player: ReactNode;
-  enemy: ReactNode;
-};
 
 export enum EntityType {
   Player,
@@ -27,8 +22,7 @@ const initialPlayerStats: Stats = {
   health: 100,
 };
 
-export default function Game(props: GameProps): JSX.Element {
-  const { player: PV, enemy: EV } = props;
+export default function Game(): JSX.Element {
   const [attempts, setAttempts] = useState<number>(1);
   const [state, setState] = useState<GameState>(GameState.Battle);
   const [round, setRound] = useState<number>(1);
@@ -82,13 +76,7 @@ export default function Game(props: GameProps): JSX.Element {
         Attempts: {attempts} | Round: {round}
       </p>
 
-      <Battle
-        player={player}
-        playerVisual={PV}
-        enemy={enemy}
-        enemyVisual={EV}
-        setGameMode={progressGame}
-      />
+      <Battle player={player} enemy={enemy} setGameMode={progressGame} />
     </>
   );
 }
