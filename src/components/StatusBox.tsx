@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useEffect } from 'react';
 import { ComponentProps, useState } from 'react';
 import Entity from '../service/Entity';
@@ -7,7 +8,7 @@ type StatusBoxProps = {
 } & ComponentProps<'div'>;
 
 export default function StatusBox(props: StatusBoxProps): JSX.Element {
-  const { entity, ...rest } = props;
+  const { entity, className, ...rest } = props;
   const [startingHealth] = useState(entity.getHealth());
   const [healthPercentage, setHealthPercentage] = useState(100);
 
@@ -18,7 +19,7 @@ export default function StatusBox(props: StatusBoxProps): JSX.Element {
   }, [currentHealth, startingHealth]);
 
   return (
-    <div className="entity-status-box" {...rest}>
+    <div className={classNames('entity-status-box', className)} {...rest}>
       <p>{entity.getName()}</p>
       <div className="health-container">
         <p className="health">
