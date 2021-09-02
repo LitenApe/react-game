@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ComponentProps, useState } from 'react';
 import Entity from '../service/Entity';
 
@@ -8,9 +9,13 @@ type StatusBoxProps = {
 export default function StatusBox(props: StatusBoxProps): JSX.Element {
   const { entity, ...rest } = props;
   const [startingHealth] = useState(entity.getHealth());
+  const [healthPercentage, setHealthPercentage] = useState(100);
 
   const currentHealth = entity.getHealth();
-  const healthPercentage = (currentHealth / startingHealth) * 100;
+
+  useEffect(() => {
+    setHealthPercentage(() => (currentHealth / startingHealth) * 100);
+  }, [currentHealth, startingHealth]);
 
   return (
     <div className="entity-status-box" {...rest}>

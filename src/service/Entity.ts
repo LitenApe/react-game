@@ -4,39 +4,67 @@ export type Stats = {
   damage: number;
   health: number;
 };
+
+export type Skill = {
+  name: string;
+  action: (entity: Entity) => number;
+};
 interface IEntity {
   getName(): string;
 
   getDamage(): number;
   getHealth(): number;
   getStats(): Stats;
+  getSkills(): Array<Skill>;
 
   receiveAttack(attack: number): number;
   heal(): void;
 
   levelUp(damage: number, health: number): void;
+  learn(skill: Skill): void;
 }
 
 export default class Entity implements IEntity {
   private name;
   private damage = 1;
   private health = 10;
+  private skills: Array<Skill> = [];
 
   constructor(name: string, damage = 1, health = 10) {
     this.name = name;
     this.damage = damage;
     this.health = health;
+    this.skills = [
+      {
+        name: 'Basic Attack',
+        action: (entity: Entity): number => {
+          return entity.getDamage();
+        },
+      },
+    ];
   }
 
   getName(): string {
     return this.name;
   }
 
+  /**
+   * Retrieve skills learned by the entity
+   * @returns { Stats } returns the damage and health
+   */
   getStats(): Stats {
     return {
       damage: this.damage,
       health: this.health,
     };
+  }
+
+  /**
+   * Retrieve an entity skills
+   * @returns { Array<Skill> } returns all the entities skills
+   */
+  getSkills(): Array<Skill> {
+    return this.skills;
   }
 
   /**
@@ -88,5 +116,12 @@ export default class Entity implements IEntity {
   levelUp(damage: number, health: number): void {
     this.damage += damage;
     this.health += health;
+  }
+
+  /**
+   * adds a skill to the entities list of learned skills
+   */
+  learn(skill: Skill): void {
+    this.skills = this.skills.concat([skill]);
   }
 }

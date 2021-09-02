@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
 import GameEntity from '../components/GameEntity';
-import Entity from '../service/Entity';
+import Entity, { Skill } from '../service/Entity';
 import { GameState } from './Game';
 import StatusBox from '../components/StatusBox';
+import { useCallback } from 'react';
+import { useState } from 'react';
+import { useMount } from '../utils/hooks/useMount';
 
 type BattleProps = {
   player: Entity;
@@ -14,51 +16,54 @@ type BattleProps = {
 
 export default function Battle(props: BattleProps): JSX.Element {
   const { player, enemy, setGameMode } = props;
-  const [battleLog, setBattleLog] = useState<Array<string>>([]);
+  const [, setgametimer] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const playerDamage = player.getDamage();
-      const remainingEnemyHealth = enemy.receiveAttack(playerDamage);
-      setBattleLog((log) => [
-        ...log,
-        `player attacked: ${playerDamage} damage => ${remainingEnemyHealth}`,
-      ]);
-
-      const enemyDamage = enemy.getDamage();
-      const remainingPlayerHealth = player.receiveAttack(enemyDamage);
-      setBattleLog((log) => [
-        ...log,
-        `enemy attacked: ${enemyDamage} damage => ${remainingPlayerHealth}`,
-      ]);
-
-      if (remainingPlayerHealth === 0 || remainingEnemyHealth === 0) {
-        setGameMode(
-          player.getHealth() === 0 ? GameState.Dead : GameState.Reward
-        );
-      }
-    }, 3000);
+  useMount(() => {
+    const timer = setInterval(() => {
+      setgametimer((current) => current + 1);
+    }, 150);
 
     return () => {
-      clearInterval(interval);
+      clearInterval(timer);
     };
-  }, [player, enemy, setGameMode]);
+  });
+
+  const executeSkill = useCallback(
+    (skill: Skill) => {
+      const damage = skill.action(player);
+      enemy.receiveAttack(damage);
+      player.receiveAttack(enemy.getDamage());
+
+      if (player.getHealth() === 0) {
+        setGameMode(GameState.Dead);
+      } else if (enemy.getHealth() === 0) {
+        setGameMode(GameState.Reward);
+      }
+    },
+    [player, enemy, setGameMode]
+  );
 
   return (
     <>
-      <div id="arena">
+      <section id="arena">
+        <h2>Battle!</h2>
         <StatusBox entity={enemy} />
         <div id="arena-ring">
           <GameEntity entity={enemy} />
           <GameEntity entity={player} />
         </div>
         <StatusBox entity={player} />
-      </div>
-      <ul>
-        {battleLog.map((history, index) => (
-          <li key={`battle-log-${index}`}>{history}</li>
-        ))}
-      </ul>
+      </section>
+      <section>
+        <h2>skills</h2>
+        <ul>
+          {player.getSkills().map((skill) => (
+            <li key={skill.name}>
+              <button onClick={() => executeSkill(skill)}>{skill.name}</button>
+            </li>
+          ))}
+        </ul>
+      </section>
     </>
   );
 }
