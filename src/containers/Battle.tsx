@@ -52,8 +52,8 @@ export default function Battle(props: BattleProps): JSX.Element {
         <h2>Battle!</h2>
         <StatusBox entity={enemy} />
         <div id="arena-ring">
-          <GameEntity entity={enemy} />
           <GameEntity entity={player} />
+          <GameEntity entity={enemy} />
         </div>
         <StatusBox entity={player} />
       </section>
