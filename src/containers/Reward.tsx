@@ -14,11 +14,11 @@ const rewards: Array<Stats> = [
   },
   {
     damage: 2,
-    health: 2,
+    health: 20,
   },
   {
     damage: 0,
-    health: 4,
+    health: 40,
   },
 ];
 

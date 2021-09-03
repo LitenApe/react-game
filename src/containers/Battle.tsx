@@ -1,10 +1,10 @@
-import GameEntity from "../components/GameEntity";
-import Entity, { Skill } from "../service/Entity";
-import { GameState } from "./Game";
-import StatusBox from "../components/StatusBox";
-import { useCallback } from "react";
-import { useState } from "react";
-import { useMount } from "../utils/hooks/useMount";
+import GameEntity from '../components/GameEntity';
+import Entity, { Skill } from '../service/Entity';
+import { GameState } from './Game';
+import StatusBox from '../components/StatusBox';
+import { useCallback } from 'react';
+import { useState } from 'react';
+import { useMount } from '../utils/hooks/useMount';
 
 type BattleProps = {
   player: Entity;

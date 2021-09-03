@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 20rem;
   padding: 0 1.25rem;
-  border: 2px solid black;
+  border: 2px solid #f5f5f5;
   border-radius: 0.15rem;
 }
 
@@ -25,14 +25,6 @@
   top: 0;
   left: 0;
   z-index: -1;
-}
-
-#arena > .entity-status-box:first-child {
-  float: right;
-}
-
-#arena > .entity-status-box:last-child {
-  float: left;
 }
 
 /* Reward */
@@ -73,8 +65,9 @@
 #reward > ul > li > button {
   width: 4rem;
   height: 4rem;
+  color: #f5f5f5;
   background-color: transparent;
-  border: 2px solid black;
+  border: 2px solid #f5f5f5;
   border-radius: 0.5rem;
   cursor: pointer;
 }
@@ -94,4 +87,41 @@
 
 #arena-ring > *:first-child {
   margin-top: 3rem;
+}
+
+/* SVG Wave */
+.svg-wave {
+  height: 13rem;
+  overflow: hidden;
+}
+
+.svg-wave.bottom > svg {
+  transform: translateY(-20rem);
+}
+
+/* Register */
+#registration {
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#registration-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #c62368;
+}
+
+#registration-form > * + * {
+  margin-top: 1rem;
+}
+
+#registration-form label {
+  color: white;
+  display: inline-flex;
+  flex-direction: column;
 }
