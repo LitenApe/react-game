@@ -58,7 +58,7 @@ export default function Battle(props: BattleProps): JSX.Element {
         <StatusBox entity={player} />
       </section>
       <section>
-        <h2>skills</h2>
+        <h2>action</h2>
         <ul>
           {player.getSkills().map((skill) => (
             <li key={skill.name}>

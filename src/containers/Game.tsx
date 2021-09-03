@@ -4,6 +4,7 @@ import Battle from '../containers/Battle';
 import { usePlayerContext } from '../context/PlayerContext';
 import Entity, { Stats } from '../service/Entity';
 import Monster from '../service/Monsters';
+import Bonus from './Bonus';
 import GameOver from './GameOver';
 import Reward from './Reward';
 
@@ -73,6 +74,10 @@ export default function Game(): JSX.Element {
 
   if (state === GameState.Reward) {
     return <Reward player={player} setGameState={setState} />;
+  }
+
+  if (state === GameState.Bonus) {
+    return <Bonus player={player} setGameState={setState} />;
   }
 
   return (
