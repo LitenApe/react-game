@@ -16,6 +16,6 @@ export default class Monster {
 
   static getMonster(): string {
     const index = Dice.roll(this.monsters.length);
-    return this.monsters[index];
+    return this.monsters[index - 1];
   }
 }
