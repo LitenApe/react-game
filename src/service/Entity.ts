@@ -1,4 +1,6 @@
 import Dice from './Dice';
+import { createAvatar } from '@dicebear/avatars';
+import * as style from '@dicebear/pixel-art';
 
 export type Stats = {
   damage: number;
@@ -11,6 +13,7 @@ export type Skill = {
 };
 interface IEntity {
   getName(): string;
+  getAvatar(): string;
 
   getDamage(): number;
   getHealth(): number;
@@ -29,6 +32,7 @@ export default class Entity implements IEntity {
   private damage = 1;
   private health = 10;
   private skills: Array<Skill> = [];
+  private avatar: string;
 
   constructor(name: string, damage = 1, health = 10) {
     this.name = name;
@@ -42,10 +46,26 @@ export default class Entity implements IEntity {
         },
       },
     ];
+
+    this.avatar = createAvatar(style, {
+      seed: this.name,
+    });
   }
 
+  /**
+   * @returns returns entity name
+   */
   getName(): string {
     return this.name;
+  }
+
+  /**
+   * returns a svg which was generated during instance
+   * creation.
+   * @returns { string } returns a html svg string
+   */
+  getAvatar(): string {
+    return this.avatar;
   }
 
   /**

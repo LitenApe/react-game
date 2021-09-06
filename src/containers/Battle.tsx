@@ -1,9 +1,9 @@
-import GameEntity from '../components/GameEntity';
-import Entity, { Skill } from '../service/Entity';
-import { GameState } from './Game';
-import StatusBox from '../components/StatusBox';
-import { useCallback } from 'react';
-import { useGameTicks } from '../utils/hooks/useGameTicks';
+import GameEntity from "../components/GameEntity";
+import Entity, { Skill } from "../service/Entity";
+import { GameState } from "./Game";
+import StatusBox from "../components/StatusBox";
+import { useCallback } from "react";
+import { useGameTicks } from "../utils/hooks/useGameTicks";
 
 type BattleProps = {
   player: Entity;
@@ -41,13 +41,13 @@ export default function Battle(props: BattleProps): JSX.Element {
         <h2>Battle!</h2>
         <StatusBox entity={enemy} />
         <div id="arena-ring">
-          <GameEntity entity={enemy} />
           <GameEntity entity={player} />
+          <GameEntity entity={enemy} />
         </div>
         <StatusBox entity={player} />
       </section>
       <section>
-        <h2>skills</h2>
+        <h2>action</h2>
         <ul>
           {player.getSkills().map((skill) => (
             <li key={skill.name}>

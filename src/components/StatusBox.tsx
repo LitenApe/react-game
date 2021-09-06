@@ -20,7 +20,9 @@ export default function StatusBox(props: StatusBoxProps): JSX.Element {
 
   return (
     <div className={classNames('entity-status-box', className)} {...rest}>
-      <p>{entity.getName()}</p>
+      <p>
+        {entity.getName()} ({entity.getStats().damage})
+      </p>
       <div className="health-container">
         <p className="health">
           {currentHealth}/{startingHealth}

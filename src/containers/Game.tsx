@@ -1,7 +1,10 @@
 import { useCallback, useState } from 'react';
 
 import Battle from '../containers/Battle';
+import { usePlayerContext } from '../context/PlayerContext';
 import Entity, { Stats } from '../service/Entity';
+import Monster from '../service/Monsters';
+import Bonus from './Bonus';
 import GameOver from './GameOver';
 import Reward from './Reward';
 
@@ -26,10 +29,13 @@ export default function Game(): JSX.Element {
   const [attempts, setAttempts] = useState<number>(1);
   const [state, setState] = useState<GameState>(GameState.Battle);
   const [round, setRound] = useState<number>(1);
+  const { name } = usePlayerContext();
   const [player, setPlayer] = useState(
-    new Entity('Player', initialPlayerStats.damage, initialPlayerStats.health)
+    new Entity(name, initialPlayerStats.damage, initialPlayerStats.health)
   );
-  const [enemy, setEnemy] = useState<Entity>(new Entity('Enemy', 1, 100));
+  const [enemy, setEnemy] = useState<Entity>(
+    new Entity(Monster.getMonster(), 1, 100)
+  );
 
   const progressGame = useCallback(
     (gameState: GameState) => {
@@ -37,7 +43,7 @@ export default function Game(): JSX.Element {
       setEnemy((previousEnemy) => {
         const previousStats = previousEnemy.getStats();
         return new Entity(
-          'Enemy',
+          Monster.getMonster(),
           previousStats.damage + round,
           initialPlayerStats.health + round
         );
@@ -50,17 +56,17 @@ export default function Game(): JSX.Element {
   const resetGame = useCallback(() => {
     setAttempts(() => attempts + 1);
     setRound(() => 1);
-    setEnemy(() => new Entity('Enemy'));
+    setEnemy(() => new Entity(Monster.getMonster()));
     setPlayer(
       () =>
         new Entity(
-          'Player',
+          name,
           attempts + initialPlayerStats.damage,
           initialPlayerStats.health
         )
     );
     setState(() => GameState.Battle);
-  }, [attempts, setAttempts, setRound, setEnemy, setState]);
+  }, [attempts, setAttempts, setRound, setEnemy, setState, name]);
 
   if (state === GameState.Dead) {
     return <GameOver resetGame={resetGame} />;
@@ -68,6 +74,10 @@ export default function Game(): JSX.Element {
 
   if (state === GameState.Reward) {
     return <Reward player={player} setGameState={setState} />;
+  }
+
+  if (state === GameState.Bonus) {
+    return <Bonus player={player} setGameState={setState} />;
   }
 
   return (
