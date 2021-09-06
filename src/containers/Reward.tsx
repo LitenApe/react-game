@@ -29,7 +29,7 @@ export default function Reward({
 }: RewardProps): JSX.Element {
   function chooseReward({ damage, health }: Stats) {
     player.levelUp(damage, health);
-    setGameState(() => (Dice.roll() >= 1 ? GameState.Bonus : GameState.Battle));
+    setGameState(() => (Dice.roll() >= 6 ? GameState.Bonus : GameState.Battle));
   }
 
   return (
