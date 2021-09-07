@@ -1,10 +1,9 @@
-import GameEntity from '../components/GameEntity';
-import Entity, { Skill } from '../service/Entity';
-import { GameState } from './Game';
-import StatusBox from '../components/StatusBox';
-import { useCallback } from 'react';
-import { useState } from 'react';
-import { useMount } from '../utils/hooks/useMount';
+import GameEntity from "../components/GameEntity";
+import Entity, { Skill } from "../service/Entity";
+import { GameState } from "./Game";
+import StatusBox from "../components/StatusBox";
+import { useCallback } from "react";
+import { useGameTicks } from "../utils/hooks/useGameTicks";
 
 type BattleProps = {
   player: Entity;
@@ -19,17 +18,7 @@ export default function Battle(props: BattleProps): JSX.Element {
 
   // Task: Remove game timer and have the
   // participant debug why it there are no updates
-  const [, setgametimer] = useState(0);
-
-  useMount(() => {
-    const timer = setInterval(() => {
-      setgametimer((current) => current + 1);
-    }, 150);
-
-    return () => {
-      clearInterval(timer);
-    };
-  });
+  useGameTicks();
 
   const executeSkill = useCallback(
     (skill: Skill) => {
