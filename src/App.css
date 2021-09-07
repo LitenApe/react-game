@@ -176,3 +176,15 @@
   grid-column: 2;
   grid-row: 2;
 }
+
+/* GameEntity */
+.entity {
+  position: relative;
+}
+
+.entity-damage-received {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0;
+}
