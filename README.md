@@ -2,6 +2,28 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Tasks
+
+### 1. GameTicks
+
+update health after each attack
+
+### 2. Recent damage
+
+show recent damage taken
+
+### 3. Introduce react router
+
+the game component is a glorified switch statement.
+move necessary logic inside of game into it's own context
+and refactor the code so that each "container" is it's own
+route while maintaining the current features
+
+### 4. RouteGuard
+
+force the user to always see the root page unless a player
+name is specified
+
 ## Available Scripts
 
 In the project directory, you can run:
