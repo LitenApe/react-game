@@ -7,6 +7,7 @@ import Loading from './components/Loading';
 
 const Game = lazy(() => import('./containers/Game'));
 const Register = lazy(() => import('./containers/Register'));
+const Memoization = lazy(() => import('./containers/Memoization'));
 
 function App(): ReactElement {
   return (
@@ -21,6 +22,9 @@ function App(): ReactElement {
           </Route>
           <Route path={Routes.GAME} exact>
             <Game />
+          </Route>
+          <Route path={Routes.MEMOIZATION} exact>
+            <Memoization />
           </Route>
         </Switch>
       </Suspense>
