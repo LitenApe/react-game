@@ -1,24 +1,19 @@
-import { Dispatch, PropsWithChildren, SetStateAction, useContext } from 'react';
-import { useState } from 'react';
-import { createContext } from 'react';
+import { Dispatch, PropsWithChildren, SetStateAction } from 'react';
 
+/**
+ * Task: Create a context which holds the players name.
+ * After the name has been set, "push" the user to the game
+ */
+// eslint-disable-next-line
 interface IPlayerContext {
   name: string;
   setName: Dispatch<SetStateAction<string>>;
 }
 
-const context = createContext<IPlayerContext>({
-  name: '',
-  setName: () => undefined,
-});
-
 export default function PlayerContext({
   children,
 }: PropsWithChildren<unknown>): JSX.Element {
-  const [name, setName] = useState('');
-  return (
-    <context.Provider value={{ name, setName }}>{children}</context.Provider>
-  );
+  return <>{children}</>;
 }
 
-export const usePlayerContext = (): IPlayerContext => useContext(context);
+export const usePlayerContext = (): unknown => ({});

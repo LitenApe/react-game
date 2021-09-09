@@ -3,7 +3,6 @@ import Entity, { Skill } from '../service/Entity';
 import { GameState } from './Game';
 import StatusBox from '../components/StatusBox';
 import { useCallback } from 'react';
-import { useGameTicks } from '../utils/hooks/useGameTicks';
 
 type BattleProps = {
   player: Entity;
@@ -16,9 +15,9 @@ type BattleProps = {
 export default function Battle(props: BattleProps): JSX.Element {
   const { player, enemy, setGameMode } = props;
 
-  // Task: Remove game timer and have the
-  // participant debug why it there are no updates
-  useGameTicks();
+  /**
+   * Task: The game seems like it is freezing, find you why and fix it
+   */
 
   const executeSkill = useCallback(
     (skill: Skill) => {

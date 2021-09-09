@@ -1,10 +1,8 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import Battle from '../containers/Battle';
-import { usePlayerContext } from '../context/PlayerContext';
 import Entity, { Stats } from '../service/Entity';
 import Monster from '../service/Monsters';
-import Bonus from './Bonus';
 import GameOver from './GameOver';
 import Reward from './Reward';
 
@@ -20,6 +18,7 @@ export enum GameState {
   Dead,
 }
 
+// eslint-disable-next-line
 const initialPlayerStats: Stats = {
   damage: 4,
   health: 100,
@@ -27,57 +26,47 @@ const initialPlayerStats: Stats = {
 
 export default function Game(): JSX.Element {
   const [attempts, setAttempts] = useState<number>(1);
-  const [state, setState] = useState<GameState>(GameState.Battle);
   const [round, setRound] = useState<number>(1);
-  const { name } = usePlayerContext();
-  const [player, setPlayer] = useState(
-    new Entity(name, initialPlayerStats.damage, initialPlayerStats.health)
-  );
-  const [enemy, setEnemy] = useState<Entity>(
-    new Entity(Monster.getMonster(), 1, 100)
-  );
+  const [state, setState] = useState<GameState>(GameState.Battle);
 
-  const progressGame = useCallback(
-    (gameState: GameState) => {
-      setRound((round) => round + 1);
-      setEnemy((previousEnemy) => {
-        const previousStats = previousEnemy.getStats();
-        return new Entity(
-          Monster.getMonster(),
-          previousStats.damage + round,
-          initialPlayerStats.health + round
-        );
-      });
-      setState(() => gameState);
-    },
-    [setRound, setEnemy, setState, round]
-  );
+  /**
+   * Task: Create a player and enemy entity when
+   * the Game renders for the first time.
+   */
+  // eslint-disable-next-line
+  const [player, setPlayer] = useState<Entity>();
+  // eslint-disable-next-line
+  const [enemy, setEnemy] = useState<Entity>();
 
-  const resetGame = useCallback(() => {
+  /**
+   * Task: create a new enemy which is guaranteed
+   * to be stronger then the previous enemy.
+   */
+  function progressGame(gameState: GameState) {
+    setRound((round) => round + 1);
+    setState(() => gameState);
+  }
+
+  function resetGame() {
     setAttempts(() => attempts + 1);
     setRound(() => 1);
-    setEnemy(() => new Entity(Monster.getMonster()));
-    setPlayer(
-      () =>
-        new Entity(
-          name,
-          attempts + initialPlayerStats.damage,
-          initialPlayerStats.health
-        )
-    );
+    setEnemy(() => new Entity(Monster.getMonster(), 1, 100));
+    setPlayer(() => new Entity('<Player name>'));
     setState(() => GameState.Battle);
-  }, [attempts, setAttempts, setRound, setEnemy, setState, name]);
+  }
+
+  /**
+   * Task: Refactor the Game component to have a dedicated context,
+   * which is where the logic will live. Afterward, set each game
+   * screen as their own path.
+   */
 
   if (state === GameState.Dead) {
     return <GameOver resetGame={resetGame} />;
   }
 
   if (state === GameState.Reward) {
-    return <Reward player={player} setGameState={setState} />;
-  }
-
-  if (state === GameState.Bonus) {
-    return <Bonus player={player} setGameState={setState} />;
+    return <Reward player={new Entity('')} setGameState={setState} />;
   }
 
   return (
@@ -86,7 +75,11 @@ export default function Game(): JSX.Element {
         Attempts: {attempts} | Round: {round}
       </p>
 
-      <Battle player={player} enemy={enemy} setGameMode={progressGame} />
+      <Battle
+        player={new Entity('')}
+        enemy={new Entity('')}
+        setGameMode={progressGame}
+      />
     </>
   );
 }

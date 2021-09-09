@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-import Dice from '../service/Dice';
 import Entity, { Stats } from '../service/Entity';
 import { GameState } from './Game';
 
@@ -29,7 +28,7 @@ export default function Reward({
 }: RewardProps): JSX.Element {
   function chooseReward({ damage, health }: Stats) {
     player.levelUp(damage, health);
-    setGameState(() => (Dice.roll() >= 6 ? GameState.Bonus : GameState.Battle));
+    setGameState(() => GameState.Battle);
   }
 
   return (

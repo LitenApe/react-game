@@ -17,15 +17,9 @@ function App(): ReactElement {
           <Route path="/" exact>
             <Redirect to={Routes.REGISTER} />
           </Route>
-          <Route path={Routes.REGISTER} exact>
-            <Register />
-          </Route>
-          <Route path={Routes.GAME} exact>
-            <Game />
-          </Route>
-          <Route path={Routes.MEMOIZATION} exact>
-            <Memoization />
-          </Route>
+          <Route path={Routes.REGISTER} component={Register} exact />
+          <Route path={Routes.GAME} component={Game} exact />
+          <Route path={Routes.MEMOIZATION} component={Memoization} exact />
         </Switch>
       </Suspense>
     </div>
