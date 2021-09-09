@@ -14,7 +14,6 @@ export enum EntityType {
 export enum GameState {
   Battle,
   Reward,
-  Bonus,
   Dead,
 }
 
@@ -50,8 +49,6 @@ export default function Game(): JSX.Element {
   function resetGame() {
     setAttempts(() => attempts + 1);
     setRound(() => 1);
-    setEnemy(() => new Entity(Monster.getMonster(), 1, 100));
-    setPlayer(() => new Entity('<Player name>'));
     setState(() => GameState.Battle);
   }
 
@@ -77,7 +74,7 @@ export default function Game(): JSX.Element {
 
       <Battle
         player={new Entity('')}
-        enemy={new Entity('')}
+        enemy={new Entity(Monster.getMonster())}
         setGameMode={progressGame}
       />
     </>
