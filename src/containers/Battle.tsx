@@ -1,8 +1,9 @@
+import { useCallback } from 'react';
+
 import GameEntity from '../components/GameEntity';
+import StatusBox from '../components/StatusBox';
 import Entity, { Skill } from '../service/Entity';
 import { GameState } from './Game';
-import StatusBox from '../components/StatusBox';
-import { useCallback } from 'react';
 
 type BattleProps = {
   player: Entity;

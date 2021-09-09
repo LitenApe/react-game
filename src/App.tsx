@@ -1,9 +1,9 @@
 import { ReactElement, Suspense, lazy } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { Routes } from './utils/routes';
 
 import './App.css';
 import Loading from './components/Loading';
+import { Routes } from './utils/routes';
 
 const Game = lazy(() => import('./containers/Game'));
 const Register = lazy(() => import('./containers/Register'));

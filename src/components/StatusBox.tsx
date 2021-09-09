@@ -1,6 +1,7 @@
+import { ComponentProps, useEffect, useState } from 'react';
+
 import classNames from 'classnames';
-import { useEffect } from 'react';
-import { ComponentProps, useState } from 'react';
+
 import Entity from '../service/Entity';
 
 type StatusBoxProps = {

@@ -1,8 +1,4 @@
-import { useCallback } from 'react';
-import { memo } from 'react';
-import { useState } from 'react';
-import { ComponentProps } from 'react';
-import { MouseEvent } from 'react';
+import { ComponentProps, MouseEvent, memo, useCallback, useState } from 'react';
 
 function Button({
   children,

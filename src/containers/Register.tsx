@@ -1,5 +1,4 @@
-import { ChangeEvent, useState } from 'react';
-import { FormEvent } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 export default function Register(): JSX.Element {
   const [value, setValue] = useState('');
