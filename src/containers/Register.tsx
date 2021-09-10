@@ -1,7 +1,7 @@
-import { FormEvent } from "react";
-import { RouterProps } from "react-router-dom";
+import { FormEvent } from 'react';
+import { RouterProps } from 'react-router-dom';
 
-import { Routes } from "../utils/routes";
+import { Routes } from '../utils/routes';
 
 export default function Register({ history }: RouterProps): JSX.Element {
   function onSubmit(event: FormEvent) {
