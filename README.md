@@ -96,6 +96,27 @@ What you did not realise is that users are unpredictable and don't always go to 
 
 Create a **RouteGuard** to force users to always have a player name present before entering the game. Additionally, add or make changes to prevent players from jumping around to different screens manually!
 
+### 9. Returning users!?!?!
+
+For some weird reason, players seems to enjoy the game. Some are even returning repeatedly, at least that is what the tracking data says. Due to the large popularity, players has begun to request for more features to be implemented. The highest priority feature, decided by someone up top that has never looked at the game is that players need to be able to continue a previous session.
+
+Another team has already been tasked with created the super complex backend for the game, the task of integrating the two, however, falls on you. Check whether or not the player name exist in the backend and use existing data if it exist. Additionally, update the data in the backend after every round and attempt to keep the data up to date. After discussing the feature more closely, we have created the story below. There is no time to lose, start working!
+
+```
+Task: Retrieve and Store Player Information
+
+Story: As a player, I want to return to where I was yesterday. It is annoying to start over again every time my little sister comes in and steals my laptop. I understand that a daily dose of Cyanide and Happiness is important. But I also want to reach round 100 in the game!
+
+Acceptance Criteria:
+GIVEN a returning player
+WHEN he type in the same name he did previously
+THEN the game starts where the player stopped playing
+
+GIVEN a player
+WHEN the player defeats an enemy or dies
+THEN the game stores the game state in the backend
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
