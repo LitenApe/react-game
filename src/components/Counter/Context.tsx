@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { PropsWithChildren, createContext, useContext, useState } from 'react';
 
 type CountContext = {
   count: number;
@@ -8,7 +8,7 @@ type CountContext = {
 
 const context = createContext<CountContext | null>(null);
 
-function Count({ children }: PropsWithChildren<{}>) {
+function Count({ children }: PropsWithChildren<unknown>) {
   const [count, setCount] = useState(0);
 
   function increment() {
@@ -40,7 +40,7 @@ function Counter() {
   const count = useCountContext();
 
   if (count === null)
-    throw new Error("Counter is not wrapped by a Count contex provider!");
+    throw new Error('Counter is not wrapped by a Count contex provider!');
 
   return (
     <div>
@@ -51,8 +51,10 @@ function Counter() {
   );
 }
 
-export default () => (
+const Wrapper = (): JSX.Element => (
   <Count>
     <Counter />
   </Count>
 );
+
+export default Wrapper;

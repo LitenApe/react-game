@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 type CounterProps = {
   count: number;
@@ -6,7 +6,7 @@ type CounterProps = {
   decrement: () => void;
 };
 
-function withCount(Component: (props: CounterProps) => JSX.Element) {
+function WithCount(Component: (props: CounterProps) => JSX.Element) {
   const [count, setCount] = useState(0);
 
   function increment() {
@@ -17,7 +17,8 @@ function withCount(Component: (props: CounterProps) => JSX.Element) {
     setCount((prev) => prev - 1);
   }
 
-  return (props: unknown) => (
+  // eslint-disable-next-line react/display-name
+  return (props: unknown): JSX.Element => (
     <Component
       count={count}
       increment={increment}
@@ -37,4 +38,4 @@ function Counter({ count, increment, decrement }: CounterProps) {
   );
 }
 
-export default withCount(Counter);
+export default WithCount(Counter);

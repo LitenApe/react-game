@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 type CounterProps = {
   count: number;
   increment: () => void;
@@ -9,7 +9,7 @@ type WithCountProps = {
   children: (props: CounterProps) => JSX.Element;
 };
 
-function WithCount(props: WithCountProps) {
+function WithCount(props: WithCountProps): JSX.Element {
   const { children } = props;
   const [count, setCount] = useState(0);
 
@@ -24,7 +24,7 @@ function WithCount(props: WithCountProps) {
   return children({ count, increment, decrement });
 }
 
-export default function Counter() {
+export default function Counter(): JSX.Element {
   return (
     <WithCount>
       {({ count, increment, decrement }) => (

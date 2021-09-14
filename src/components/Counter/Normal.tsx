@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-export default function Counter() {
+export default function Counter(): JSX.Element {
   const [count, setCount] = useState(0);
 
   function increment() {

@@ -1,13 +1,36 @@
-import { ComponentProps, MouseEvent, memo, useCallback, useState } from 'react';
+import {
+  ComponentProps,
+  MouseEvent,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
-function Button({
-  children,
-  dataId,
-  ...props
-}: { dataId: number } & ComponentProps<'button'>): JSX.Element {
-  console.log('rendering button', dataId);
-  return <button {...props}>{children}</button>;
-}
+// eslint-disable-next-line react/display-name
+const Button = memo((props: ComponentProps<'button'>): JSX.Element => {
+  const { children, ...rest } = props;
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    buttonRef.current?.classList.add('rerendered');
+
+    const timer = setTimeout(() => {
+      buttonRef.current?.classList.remove('rerendered');
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  });
+
+  return (
+    <button ref={buttonRef} {...rest}>
+      {children}
+    </button>
+  );
+});
 
 // eslint-disable-next-line react/display-name
 const List = memo(
@@ -16,11 +39,35 @@ const List = memo(
   }: {
     onClick: (event: MouseEvent<HTMLButtonElement>) => void;
   }) => {
+    const [clicks, setClicks] = useState(Array.from({ length: 10 }, () => 0));
+
+    const increment = useCallback(
+      (event: MouseEvent<HTMLButtonElement>) => {
+        const dataId = event.currentTarget.getAttribute('data-id');
+        const idx = parseInt(dataId || '');
+        setClicks((prev) =>
+          prev.map((val, i) => {
+            if (idx === i) {
+              return val + 1;
+            } else {
+              return val;
+            }
+          })
+        );
+        onClick(event);
+      },
+      [onClick]
+    );
+
     return (
       <ul>
-        {Array.from(Array(10)).map((_, idx) => (
+        {clicks.map((clicksCounted, idx) => (
           <li key={'without-' + idx}>
-            <Button dataId={idx} onClick={onClick}>
+            <Button
+              data-id={idx}
+              data-clicks={clicksCounted}
+              onClick={increment}
+            >
               hello there
             </Button>
           </li>
@@ -41,10 +88,8 @@ function WithoutMemoization(): JSX.Element {
 
   return (
     <section>
-      <h2>Without Memoization ({clicked})</h2>
-      <ul>
-        <List onClick={onClick} />
-      </ul>
+      <h2>Without ({clicked})</h2>
+      <List onClick={onClick} />
     </section>
   );
 }
@@ -60,10 +105,8 @@ function WithMemoization(): JSX.Element {
 
   return (
     <section>
-      <h2>With Memoization ({clicked})</h2>
-      <ul>
-        <List onClick={onClick} />
-      </ul>
+      <h2>With ({clicked})</h2>
+      <List onClick={onClick} />
     </section>
   );
 }
@@ -72,7 +115,7 @@ export default function Memoization(): JSX.Element {
   return (
     <>
       <h1>Memoization Examples</h1>
-      <div>
+      <div id="memoization">
         <WithoutMemoization />
         <WithMemoization />
       </div>
