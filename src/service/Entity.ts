@@ -1,16 +1,19 @@
-import Dice from './Dice';
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/pixel-art';
 
+import Dice from './Dice';
+
 export type Stats = {
   damage: number;
-  health: number;
+  currentHealth: number;
+  originalHealth: number;
 };
 
 export type Skill = {
   name: string;
   action: (entity: Entity) => number;
 };
+
 interface IEntity {
   getName(): string;
   getAvatar(): string;
@@ -29,15 +32,17 @@ interface IEntity {
 
 export default class Entity implements IEntity {
   private name;
-  private damage = 1;
-  private health = 10;
+  private damage;
+  private originalHealth;
+  private currentHealth;
   private skills: Array<Skill> = [];
   private avatar: string;
 
-  constructor(name: string, damage = 1, health = 10) {
+  constructor(name: string, damage = 5, health = 100) {
     this.name = name;
     this.damage = damage;
-    this.health = health;
+    this.originalHealth = health;
+    this.currentHealth = health;
     this.skills = [
       {
         name: 'Basic Attack',
@@ -75,7 +80,8 @@ export default class Entity implements IEntity {
   getStats(): Stats {
     return {
       damage: this.damage,
-      health: this.health,
+      currentHealth: this.currentHealth,
+      originalHealth: this.originalHealth,
     };
   }
 
@@ -101,7 +107,7 @@ export default class Entity implements IEntity {
    * @returns { number } current health
    */
   getHealth(): number {
-    return this.health;
+    return this.currentHealth;
   }
 
   /**
@@ -111,15 +117,15 @@ export default class Entity implements IEntity {
    * @returns remaining health
    */
   receiveAttack(attack: number): number {
-    this.health = this.health - attack;
+    this.currentHealth = this.currentHealth - attack;
 
-    if (this.health < 0) {
-      this.health = 0;
+    if (this.currentHealth < 0) {
+      this.currentHealth = 0;
     } else if (Dice.roll() === 6) {
       this.heal();
     }
 
-    return this.health;
+    return this.currentHealth;
   }
 
   /**
@@ -127,7 +133,8 @@ export default class Entity implements IEntity {
    */
   heal(): void {
     const dies = Dice.roll();
-    this.health = dies >= 5 ? this.health + 4 : this.health + 2;
+    this.currentHealth =
+      dies >= 5 ? this.currentHealth + 4 : this.currentHealth + 2;
   }
 
   /**
@@ -135,7 +142,8 @@ export default class Entity implements IEntity {
    */
   levelUp(damage: number, health: number): void {
     this.damage += damage;
-    this.health += health;
+    this.currentHealth += health;
+    this.originalHealth += health;
   }
 
   /**

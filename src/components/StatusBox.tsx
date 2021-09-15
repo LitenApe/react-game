@@ -10,7 +10,7 @@ type StatusBoxProps = {
 
 export default function StatusBox(props: StatusBoxProps): JSX.Element {
   const { entity, className, ...rest } = props;
-  const [startingHealth] = useState(entity.getHealth());
+  const [startingHealth] = useState(entity.getStats().originalHealth);
   const [healthPercentage, setHealthPercentage] = useState(100);
 
   const currentHealth = entity.getHealth();

@@ -1,14 +1,14 @@
 import Entity from '../service/Entity';
+import { usePreviousValue } from '../utils/hooks/usePreviousValue';
 
 type GameEntityProps = {
   entity: Entity;
 };
 
 export default function GameEntity({ entity }: GameEntityProps): JSX.Element {
-  /**
-   * Task: Calculate the damage recently received and display it!
-   */
-  const recentDamage = 0;
+  const current = entity.getHealth();
+  const previous = usePreviousValue(current);
+  const recentDamage = previous - current;
 
   return (
     <div className="entity">

@@ -14,7 +14,7 @@ Complete the implementation of **context/PlayerContext.tsx** and connect it to t
 
 ```ts
 import { createContext, useContext } from 'react';
-const myContext = createContext(/* initial context values and functions */);
+const myContext = createContext(/* fallback context values and functions */);
 
 function MyContext({ children }) {
   return (

@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import GameEntity from '../components/GameEntity';
 import StatusBox from '../components/StatusBox';
 import Entity, { Skill } from '../service/Entity';
+import { useGameTicks } from '../utils/hooks/useGameTicks';
 import { GameState } from './Game';
 
 type BattleProps = {
@@ -19,6 +20,7 @@ export default function Battle(props: BattleProps): JSX.Element {
   /**
    * Task: The game seems like it is freezing, find you why and fix it
    */
+  useGameTicks();
 
   const executeSkill = useCallback(
     (skill: Skill) => {

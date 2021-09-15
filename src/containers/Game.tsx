@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 import Battle from '../containers/Battle';
-import Entity, { Stats } from '../service/Entity';
+import { usePlayerContext } from '../context/PlayerContext';
+import Entity from '../service/Entity';
 import Monster from '../service/Monsters';
 import GameOver from './GameOver';
 import Reward from './Reward';
@@ -17,25 +18,19 @@ export enum GameState {
   Dead,
 }
 
-// eslint-disable-next-line
-const initialPlayerStats: Stats = {
-  damage: 4,
-  health: 100,
-};
-
 export default function Game(): JSX.Element {
+  const player = usePlayerContext();
   const [attempts, setAttempts] = useState<number>(1);
   const [round, setRound] = useState<number>(1);
   const [state, setState] = useState<GameState>(GameState.Battle);
 
-  /**
-   * Task: Create a player and enemy entity when
-   * the Game renders for the first time.
-   */
-  // eslint-disable-next-line
-  const [player, setPlayer] = useState<Entity>();
-  // eslint-disable-next-line
-  const [enemy, setEnemy] = useState<Entity>();
+  if (player === null || player?.entity === null) {
+    throw new Error(
+      'Game is either not wrapped by a PlayerContext or player entity is yet to be created'
+    );
+  }
+
+  const [enemy, setEnemy] = useState<Entity>(new Entity(Monster.getMonster()));
 
   /**
    * Task: create a new enemy which is guaranteed
@@ -43,13 +38,23 @@ export default function Game(): JSX.Element {
    */
   function progressGame(gameState: GameState) {
     setRound((round) => round + 1);
-    setState(() => gameState);
+    setEnemy((dead) => {
+      const currentStats = dead.getStats();
+      return new Entity(
+        Monster.getMonster(),
+        currentStats.damage + 2,
+        currentStats.originalHealth + 5
+      );
+    });
+    setState(gameState);
   }
 
   function resetGame() {
-    setAttempts(() => attempts + 1);
-    setRound(() => 1);
-    setState(() => GameState.Battle);
+    setAttempts(attempts + 1);
+    setRound(1);
+    player?.revive();
+    setEnemy(new Entity(Monster.getMonster()));
+    setState(GameState.Battle);
   }
 
   /**
@@ -57,13 +62,12 @@ export default function Game(): JSX.Element {
    * which is where the logic will live. Afterward, set each game
    * screen as their own path.
    */
-
   if (state === GameState.Dead) {
     return <GameOver resetGame={resetGame} />;
   }
 
   if (state === GameState.Reward) {
-    return <Reward player={new Entity('')} setGameState={setState} />;
+    return <Reward player={player.entity} setGameMode={setState} />;
   }
 
   return (
@@ -72,11 +76,7 @@ export default function Game(): JSX.Element {
         Attempts: {attempts} | Round: {round}
       </p>
 
-      <Battle
-        player={new Entity('')}
-        enemy={new Entity(Monster.getMonster())}
-        setGameMode={progressGame}
-      />
+      <Battle player={player.entity} enemy={enemy} setGameMode={progressGame} />
     </>
   );
 }
